@@ -338,64 +338,39 @@
     </div>
 
     <script>
-        // Initialize EmailJS with your public key
-        emailjs.init('qvQjT4cuYhT9u-dQF');
+    emailjs.init('qvQjT4cuYhT9u-dQF');
 
-        // Form handling with EmailJS
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const statusMessage = document.getElementById('statusMessage');
-            const submitBtn = document.querySelector('.submit-btn');
-            
-            // Show loading state
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            // Send email using EmailJS
-            emailjs.sendForm(
-                'service_zqvghbl',     // Your Service ID
-                'template_fiak3ku',    // Your Template ID
-                e.target,              // The form element
-                'qvQjT4cuYhT9u-dQF'   // Your Public Key
-            )
-            .then(() => {
-                // Success message
-                statusMessage.className = 'status-message success';
-                statusMessage.style.display = 'block';
-                statusMessage.textContent = 'Thanks! Your message has been sent successfully. I\'ll get back to you soon.';
-                
-                // Reset form
-                e.target.reset();
-                
-                // Reset button
-                submitBtn.textContent = 'Send Message';
-                submitBtn.disabled = false;
-                
-            })
-            .catch((error) => {
-                // Error message
-                console.error('EmailJS error:', error);
-                statusMessage.className = 'status-message error';
-                statusMessage.style.display = 'block';
-                statusMessage.textContent = 'Sorry, there was an error sending your message. Please try again or email me directly.';
-                
-                // Reset button
-                submitBtn.textContent = 'Send Message';
-                submitBtn.disabled = false;
-            });
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const statusMessage = document.getElementById('statusMessage');
+        const submitBtn = document.querySelector('.submit-btn');
+
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        emailjs.sendForm(
+            'service_zqvghbl',
+            'template_fiak3ku',
+            e.target,
+            'qvQjT4cuYhT9u-dQF'
+        )
+        // 👇 START HERE: Add this
+        .then(() => {
+            statusMessage.className = 'status-message success';
+            statusMessage.style.display = 'block';
+            statusMessage.textContent = 'Thanks! Your message has been sent successfully. I\'ll get back to you soon.';
+            e.target.reset();
+            submitBtn.textContent = 'Send Message';
+            submitBtn.disabled = false;
+        }, (error) => {
+            statusMessage.className = 'status-message error';
+            statusMessage.style.display = 'block';
+            statusMessage.textContent = 'Oops! Something went wrong. Please try again.';
+            submitBtn.textContent = 'Send Message';
+            submitBtn.disabled = false;
         });
-        
-        // Add some interactive effects
-        document.querySelectorAll('input, textarea').forEach(field => {
-            field.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'scale(1.02)';
-            });
-            
-            field.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'scale(1)';
-            });
-        });
-    </script>
+    });
+</script>
 </body>
 </html>
