@@ -1,47 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    nav a { margin-right: 15px; }
-    form {
-      max-width: 400px;
-      margin-top: 20px;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      box-sizing: border-box;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Tony Champion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: #2c3e50;
+            padding: 15px 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 30px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .intro {
+            text-align: center;
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .contact-info h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(5px);
+        }
+
+        .contact-item strong {
+            color: #2c3e50;
+            min-width: 100px;
+            display: inline-block;
+        }
+
+        .contact-item a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: inline-block;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 26px;
+        }
+
+        .social-link:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .contact-form h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+            transform: translateY(-2px);
+        }
+
+        /* Status Messages */
+        .status-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            nav {
+                padding: 10px 20px;
+            }
+            
+            nav a {
+                margin-right: 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a> |
-    <a href="about.html">About</a> |
-    <a href="projects.html">Projects</a> |
-    <a href="contact.html">Contact</a>
-  </nav>
+    <div class="container">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="contact.html">Contact</a>
+        </nav>
 
-  <h1>Contact Me</h1>
-  <p>You can reach me via email at: <strong>your.email@example.com</strong></p>
+        <div class="content">
+            <h1>Contact Me</h1>
+            <p class="intro">I'd love to hear from you! Whether you're looking to collaborate, have a project in mind, or just want to connect, feel free to reach out.</p>
 
-  <form>
-    <label for="name">Your Name:</label>
-    <input type="text" id="name" name="name" required>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    
+                    <div class="contact-item">
+                        <strong>Email:</strong>
+                        <a href="mailto:tony.champion@example.com">tony.champion@example.com</a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <strong>LinkedIn:</strong>
+                        <a href="https://linkedin.com/in/tony-champion" target="_blank">linkedin.com/in/tony-champion</a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <strong>GitHub:</strong>
+                        <a href="https://github.com/tonychampion" target="_blank">github.com/tonychampion</a>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <strong>Location:</strong>
+                        Available for remote work
+                    </div>
+                    
+                    <div class="contact-item">
+                        <strong>Response Time:</strong>
+                        Usually within 24 hours
+                    </div>
 
-    <label for="message">Your Message:</label>
-    <textarea id="message" name="message" rows="5" required></textarea>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/tony-champion" target="_blank" class="social-link" title="LinkedIn">in</a>
+                        <a href="https://github.com/tonychampion" target="_blank" class="social-link" title="GitHub">gh</a>
+                        <a href="https://twitter.com/tonychampion" target="_blank" class="social-link" title="Twitter">tw</a>
+                    </div>
+                </div>
 
-    <input type="submit" value="Send">
-  </form>
+                <div class="contact-form">
+                    <h3>Send Me a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Your Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="What's this about?">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Your Message *</label>
+                            <textarea id="message" name="message" required placeholder="Tell me about your project, question, or just say hello!"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                    
+                    <div id="statusMessage" class="status-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const statusMessage = document.getElementById('statusMessage');
+            const submitBtn = document.querySelector('.submit-btn');
+            
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            // Simulate form submission (replace with actual form handler)
+            setTimeout(() => {
+                // For now, we'll just show a success message
+                // In a real scenario, you'd send this to a server or email service
+                
+                statusMessage.className = 'status-message success';
+                statusMessage.style.display = 'block';
+                statusMessage.textContent = `Thanks ${name}! Your message has been received. I'll get back to you at ${email} soon.`;
+                
+                // Reset form
+                this.reset();
+                
+                // Reset button
+                submitBtn.textContent = 'Send Message';
+                submitBtn.disabled = false;
+                
+                // You could also create a mailto link as a fallback:
+                // window.location.href = `mailto:tony.champion@example.com?subject=${encodeURIComponent(subject || 'Contact from website')}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+                
+            }, 1000);
+        });
+        
+        // Add some interactive effects
+        document.querySelectorAll('input, textarea').forEach(field => {
+            field.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            field.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
 </body>
 </html>
