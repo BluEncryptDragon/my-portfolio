@@ -4,6 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    nav a { margin-right: 15px; }
+    form {
+      max-width: 400px;
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+  </style>
 </head>
 <body>
   <nav>
@@ -13,7 +31,17 @@
     <a href="contact.html">Contact</a>
   </nav>
 
-  <h1>Contact</h1>
-  <p>This is where your contact info or form will go.</p>
+  <h1>Contact Me</h1>
+  <p>You can reach me via email at: <strong>your.email@example.com</strong></p>
+
+  <form>
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="message">Your Message:</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+
+    <input type="submit" value="Send">
+  </form>
 </body>
 </html>
