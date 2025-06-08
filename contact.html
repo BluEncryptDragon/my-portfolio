@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Tony Champion</title>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -207,6 +209,12 @@
             transform: translateY(-2px);
         }
 
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Status Messages */
         .status-message {
             padding: 15px;
@@ -330,7 +338,10 @@
     </div>
 
     <script>
-        // Form handling
+        // Initialize EmailJS with your public key
+        emailjs.init('qvQjT4cuYhT9u-dQF');
+
+        // Form handling with EmailJS
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -341,33 +352,38 @@
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
-            // Get form data
-            const formData = new FormData(this);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const subject = formData.get('subject');
-            const message = formData.get('message');
-            
-            // Simulate form submission (replace with actual form handler)
-            setTimeout(() => {
-                // For now, we'll just show a success message
-                // In a real scenario, you'd send this to a server or email service
-                
+            // Send email using EmailJS
+            emailjs.sendForm(
+                'service_zqvghbl',     // Your Service ID
+                'template_fiak3ku',    // Your Template ID
+                e.target,              // The form element
+                'qvQjT4cuYhT9u-dQF'   // Your Public Key
+            )
+            .then(() => {
+                // Success message
                 statusMessage.className = 'status-message success';
                 statusMessage.style.display = 'block';
-                statusMessage.textContent = `Thanks ${name}! Your message has been received. I'll get back to you at ${email} soon.`;
+                statusMessage.textContent = 'Thanks! Your message has been sent successfully. I\'ll get back to you soon.';
                 
                 // Reset form
-                this.reset();
+                e.target.reset();
                 
                 // Reset button
                 submitBtn.textContent = 'Send Message';
                 submitBtn.disabled = false;
                 
-                // You could also create a mailto link as a fallback:
-                // window.location.href = `mailto:tony.champion1@outlook.co.nz?subject=${encodeURIComponent(subject || 'Contact from website')}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+            })
+            .catch((error) => {
+                // Error message
+                console.error('EmailJS error:', error);
+                statusMessage.className = 'status-message error';
+                statusMessage.style.display = 'block';
+                statusMessage.textContent = 'Sorry, there was an error sending your message. Please try again or email me directly.';
                 
-            }, 1000);
+                // Reset button
+                submitBtn.textContent = 'Send Message';
+                submitBtn.disabled = false;
+            });
         });
         
         // Add some interactive effects
